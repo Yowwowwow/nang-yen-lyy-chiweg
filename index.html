@@ -26,10 +26,31 @@ img {
     padding-top: 0%;
     float: left;
 }
+div.fixed {
+    position: fixed;
+    background: gold;
+}
+@media all and (max-aspect-ratio: 16/9)
+{
+    div.fixed {
+        bottom: calc(50vh - 28.125vw);
+        width: 100vw;
+        height: 56.25vw;
+    }
+}
+@media all and (min-aspect-ratio: 16/9)
+{
+    div.fixed {
+        right: calc(50vw - 88.888888888888888888888888888888889vh);
+        width: 177.777777777777777777777777777777778vh;
+        height: 100vh;
+    }
+}
 a:link { color: #0000EE; }
 a:visited { color: #551A8B; }
 * {color: #1f2328}
 </style>
-<body style="margin:0">
+<body style="margin:0; overflow: hidden;">
+    <div class="fixed">amogus test</div>
 </body>
 </html>
