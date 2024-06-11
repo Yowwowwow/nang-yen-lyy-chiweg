@@ -1,6 +1,6 @@
 <!--Credit: 全字庫正楷體 https://www.cns11643.gov.tw/-->
 <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
-  <circle r="48.5" cx="50" cy="50" stroke-width="3" stroke="#000" fill="none"/>
+  <circle r="48.5" cx="50" cy="50" stroke-width="3" stroke="#000" fill="#fff"/>
   <circle r="43.5" cx="50" cy="50" stroke-width="3" stroke="#d00" fill="none"/>
   <path fill="#d00" transform="translate(14,13) scale(0.07,0.07)"
 d="M80.5986 604.923q-11.0273 8.57715 -19.0166 8.57715t-10.6992 -8.12988q-1.38281 -4.14844 -1.38281 -9.00879q0 -4.86133 4.81836 -11.2842l19.2686 -19.2686l45.8447 -49.8311q30.7402 -34.7129 62.5479 -78.4482q31.8213 -42.7598 56.7021 -82.5693
