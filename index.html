@@ -124,11 +124,16 @@ a:visited { color: #551A8B; }
         <div class="chardis" id="cd2" data-you="0" onclick="ChangeYou(2)" style="left: 51.5%;"><div class="shadow"></div><p><i><b style="font-size: 0.0315rem; color: #000; position: absolute; bottom: 0; left: 0.035rem; width: 0.1rem">zrả</b></i></p><p class="you">You</p><input type="checkbox" onclick="CheckCharacter(event)" id="cb2" checked></div>
         <div class="chardis" id="cd3" data-you="0" onclick="ChangeYou(3)" style="left: calc(69.5% + 0.0064rem);"><div class="shadow"></div><img src="images/cnai.svg" style="width:105%; top: -1%; left: -1%;"><p><i><b style="font-size: 0.0315rem; color: #000; position: absolute; bottom: 0; left: 0.0336rem; width: 0.1rem">cnāi</b></i></p><p class="you">You</p><input type="checkbox" onclick="CheckCharacter(event)" id="cb3" checked></div>
         <p id="playercount" style="position: absolute; text-align: center; left: 0; top: 73.5%; width: 100%; height: 20%; font-size: 0.05rem; color: #eee;">4 Players</p>
-        <button style="position: absolute; left: 37.5%; top: 85%; width: 25%; height: 12%; font-size: 0.05rem;">START</button>
+        <button onclick="START()" style="position: absolute; left: 37.5%; top: 85%; width: 25%; height: 12%; font-size: 0.05rem;">START</button>
         <p style="color: #000; font-size: 0.02rem; position: absolute; bottom: 0.001rem; left: 0.001rem">lì tŕ 2024<br>yowwowwow.github.io</p>
     </div>
 </div>
 </body>
 <script src="CharacterSelect.js"></script>
+<script>
+    function START(){
+        SaveChars();
+    }
+</script>
 <!-- <script src="BoxTurner.js"></script> -->
 </html>
