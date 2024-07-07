@@ -57,7 +57,7 @@ div.chardis[data-you="1"]{
 div.chardis[data-you="1"]:hover{
     border-color: #df0000;
 }
-div.chardis[data-you="1"] p.you{
+#title[style*="visibility: visible"] div.chardis[data-you="1"] p.you{
     position: absolute;
     font-size: 0.04rem;
     color: red;
@@ -117,7 +117,7 @@ a:visited { color: #551A8B; }
 </style>
 <body style="margin:0; overflow: hidden; background-color: #999;">
 <div id="box" class="fixed">
-    <div id="title">
+    <div id="title" style="visibility: visible;">
         <img src="images/logo.svg" style="filter: drop-shadow(0 0 0.0015rem #fff); position: absolute; left: 20%; top: 5%; width: 60%;">
         <div class="chardis" id="cd0" data-you="1" onclick="ChangeYou(0)" style="right: calc(69.5% + 0.0064rem);"><div class="shadow"></div><p><i><b style="font-size: 0.0315rem; color: #000; position: absolute; bottom: 0; left: 0.035rem; width: 0.1rem">puān</b></i></p><p class="you">You</p><input type="checkbox" onclick="CheckCharacter(event)" id="cb0" checked></div>
         <div class="chardis" id="cd1" data-you="0" onclick="ChangeYou(1)" style="right: 51.5%;"><div class="shadow"></div><p><i><b style="font-size: 0.0315rem; color: #000; position: absolute; bottom: 0; left: 0.0336rem; width: 0.115rem">chyúng</b></i></p><p class="you">You</p><input type="checkbox" onclick="CheckCharacter(event)" id="cb1" checked></div>
@@ -127,12 +127,23 @@ a:visited { color: #551A8B; }
         <button onclick="START()" style="position: absolute; left: 37.5%; top: 85%; width: 25%; height: 12%; font-size: 0.05rem;">START</button>
         <p style="color: #000; font-size: 0.02rem; position: absolute; bottom: 0.001rem; left: 0.001rem">lì tŕ 2024<br>yowwowwow.github.io</p>
     </div>
+    <div id="game" style="visibility: hidden;">
+        <button onclick="QUIT()" style="position: absolute; left: 0.5625%; top: 1%; width: 11%; height: 8%; font-size: 0.035rem;">QUIT</button>
+    </div>
 </div>
 </body>
 <script src="CharacterSelect.js"></script>
 <script>
+    var title = document.getElementById("title");
+    var game = document.getElementById("game");
     function START(){
         SaveChars();
+        title.style.visibility = "hidden";
+        game.style.visibility = "visible";
+    }
+    function QUIT(){
+        game.style.visibility = "hidden";
+        title.style.visibility = "visible";
     }
 </script>
 <!-- <script src="BoxTurner.js"></script> -->
