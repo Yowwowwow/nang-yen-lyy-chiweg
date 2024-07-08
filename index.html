@@ -4,116 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="32 Tshiok game.">
+    <link rel="stylesheet" type="text/css" href="styles/basics.css" />
+    <link rel="stylesheet" type="text/css" href="styles/squares.css" />
 <title>32 Tshiok</title>
 <link rel="shortcut icon" href="images/chiweg.svg">
 </head>
 <style>
-*{touch-action: manipulation; overflow: hidden;}
-img{pointer-events: none;}
-p{
-    margin: 0;
-    user-select: none;
-}
-div.chardis{
-    background-color: #888;
-    position: absolute;
-    width: 15%;
-    height: 40%;
-    top: 30.5%;
-    border: 0.0032rem solid #000;
-}
-div.chardis img{
-    position: absolute;
-}
-div.chardis input[type=checkbox]{
-    position: absolute;
-    width: 0.03rem;
-    height: 0.03rem;
-    left: 0;
-    bottom: 0;
-    accent-color: #000;
-}
-div.chardis div.shadow{
-    position: absolute;
-    border-radius: 50%;
-    width: 50%;
-    height: 50%;
-    top: 25%;
-    left: 25%;
-    background: #fff;
-    opacity: 0.5;
-    filter: blur(0.02rem);
-    transform: scale(1, 1);
-}
-div.chardis p.you{
-    visibility: hidden;
-}
-div.chardis:hover{
-    border-color: #800000;
-}
-div.chardis[data-you="1"]{
-    border-color: red;
-}
-div.chardis[data-you="1"]:hover{
-    border-color: #df0000;
-}
-#title[style*="visibility: visible"] div.chardis[data-you="1"] p.you{
-    position: absolute;
-    font-size: 0.04rem;
-    color: red;
-    filter: drop-shadow(0 0 0.001rem #fff);
-    top: 0;
-    left: 0.001rem;
-    visibility: visible;
-}
-div.fixed, div.turned {
-    position: fixed;
-    background: #016529;
-}
-@media all and (max-aspect-ratio: 16/9)
-{
-    div.fixed {
-        bottom: calc(50vh - 28.125vw);
-        width: 100vw;
-        height: 56.25vw;
-    }
-    html{font-size: 100vw;}
-}
-@media all and (min-aspect-ratio: 16/9)
-{
-    div.fixed {
-        right: calc(50vw - 88.888888888888888888888888888888889vh);
-        width: 177.777777777777777777777777777777778vh;
-        height: 100vh;
-    }
-    html{font-size: 177.777777777777777777777777777777778vh;}
-}
-@media all and (max-aspect-ratio: 9/16)
-{
-    div.turned {
-        right: -38.888888888888888888888888888888889vw;
-        bottom: calc(50vh - 50vw);
-        width: 177.777777777777777777777777777777778vw;
-        height: 100vw;
-    }
-    /* html{font-size: 177.777777777777777777777777777777778vw;} */
-}
-@media all and (min-aspect-ratio: 9/16)
-{
-    div.turned {
-        right: calc(50vw - 50vh);
-        bottom: 21.875vh;
-        width: 100vh;
-        height: 56.25vh;
-    }
-    /* html{font-size: 100vh;} */
-}
-div.turned {
-    transform: rotate(90deg); /* Please do not use this. */
-}
-a:link { color: #0000EE; }
-a:visited { color: #551A8B; }
-* {color: #1f2328}
+    a:link { color: #0000EE; }
+    a:visited { color: #551A8B; }
+    * {color: #1f2328}
 </style>
 <body style="margin:0; overflow: hidden; background-color: #999;">
 <div id="box" class="fixed">
@@ -129,10 +28,11 @@ a:visited { color: #551A8B; }
     </div>
     <div id="game" style="visibility: hidden;">
         <button onclick="QUIT()" style="position: absolute; left: 0.5625%; top: 1%; width: 11%; height: 8%; font-size: 0.035rem;">QUIT</button>
+        <div id="sq0" class="sq" data-val="-1" style="left: 15%; top:25%;"></div>
     </div>
 </div>
 </body>
-<script src="CharacterSelect.js"></script>
+<script src="scripts/CharacterSelect.js"></script>
 <script>
     var title = document.getElementById("title");
     var game = document.getElementById("game");
@@ -146,5 +46,5 @@ a:visited { color: #551A8B; }
         title.style.visibility = "visible";
     }
 </script>
-<!-- <script src="BoxTurner.js"></script> -->
+<!-- <script src="scripts/BoxTurner.js"></script> -->
 </html>

@@ -1,0 +1,9 @@
+div.sq{
+    position: absolute;
+    height: 8%;
+    width: 4.5%;
+    background-size: 100% 100%;
+}
+div.sq[data-val="-2"]{background-image: none;}
+div.sq[data-val="-1"]{background-image: url("../images/pc.svg");}
+div.sq[data-val="0"]{background-image: url("../images/00.svg");}

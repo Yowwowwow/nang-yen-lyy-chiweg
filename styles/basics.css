@@ -1,0 +1,107 @@
+*{touch-action: manipulation; overflow: hidden;}
+img{pointer-events: none;}
+p{
+    margin: 0;
+    user-select: none;
+}
+div.chardis{
+    background-color: #888;
+    position: absolute;
+    width: 15%;
+    height: 40%;
+    top: 30.5%;
+    border: 0.0032rem solid #000;
+}
+div.chardis img{
+    position: absolute;
+}
+div.chardis input[type=checkbox]{
+    position: absolute;
+    width: 0.03rem;
+    height: 0.03rem;
+    left: 0;
+    bottom: 0;
+    accent-color: #000;
+}
+div.chardis div.shadow{
+    position: absolute;
+    border-radius: 50%;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    background: #fff;
+    opacity: 0.5;
+    filter: blur(0.02rem);
+    transform: scale(1, 1);
+}
+div.chardis p.you{
+    visibility: hidden;
+}
+div.chardis:hover{
+    border-color: #800000;
+}
+div.chardis[data-you="1"]{
+    border-color: red;
+}
+div.chardis[data-you="1"]:hover{
+    border-color: #df0000;
+}
+#title[style*="visibility: visible"] div.chardis[data-you="1"] p.you{
+    position: absolute;
+    font-size: 0.04rem;
+    color: red;
+    filter: drop-shadow(0 0 0.001rem #fff);
+    top: 0;
+    left: 0.001rem;
+    visibility: visible;
+}
+div.fixed, div.turned {
+    position: fixed;
+    background: #016529;
+}
+@media all and (max-aspect-ratio: 16/9)
+{
+    div.fixed {
+        bottom: calc(50vh - 28.125vw);
+        width: 100vw;
+        height: 56.25vw;
+        /* background-size: 100vw 56.25vw; */
+    }
+    html{font-size: 100vw;}
+}
+@media all and (min-aspect-ratio: 16/9)
+{
+    div.fixed {
+        right: calc(50vw - 88.888888888888888888888888888888889vh);
+        width: 177.777777777777777777777777777777778vh;
+        height: 100vh;
+        /* background-size: 177.777777777777777777777777777777778vh 100vh; */
+    }
+    html{font-size: 177.777777777777777777777777777777778vh;}
+}
+@media all and (max-aspect-ratio: 9/16)
+{
+    div.turned {
+        right: -38.888888888888888888888888888888889vw;
+        bottom: calc(50vh - 50vw);
+        width: 177.777777777777777777777777777777778vw;
+        height: 100vw;
+        /* background-size: 177.777777777777777777777777777777778vw 100vw; */
+    }
+    /* html{font-size: 177.777777777777777777777777777777778vw;} */
+}
+@media all and (min-aspect-ratio: 9/16)
+{
+    div.turned {
+        right: calc(50vw - 50vh);
+        bottom: 21.875vh;
+        width: 100vh;
+        height: 56.25vh;
+        /* background-size: 100vh 56.25vh; */
+    }
+    /* html{font-size: 100vh;} */
+}
+div.turned {
+    transform: rotate(90deg); /* Please do not use this. */
+}
