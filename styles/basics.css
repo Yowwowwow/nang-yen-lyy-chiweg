@@ -23,6 +23,7 @@ div.head div.shadow{
     filter: blur(0.0125rem);
     transform: scale(1, 1);
 }
+div.head img{position: absolute; top: 0; left: 0; width: 100%;}
 div.chardis{
     background-color: #888;
     position: absolute;

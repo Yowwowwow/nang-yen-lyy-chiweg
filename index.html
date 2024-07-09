@@ -29,9 +29,12 @@
     <div id="game" style="visibility: hidden;">
         <button onclick="QUIT()" style="position: absolute; left: 0.5625%; top: 1%; width: 11%; height: 8%; font-size: 0.035rem;">QUIT</button>
         <div id="sq0" class="sq" data-val="-1" style="left: 15%; top:25%;"></div>
-        <div class="head" data-val="3" style="left: 10%; bottom: 17%;"><div class="shadow"></div><img src="images/cnai head.svg" style="position: absolute; top: 0; left: 0; width: 100%;"></div>
-        <p style="color: #000; font-size: 0.02rem; position: absolute; bottom: 16.8%; left: 19%">You</p> 
-        <div id="phand" style="position: absolute; left: 8.9453125%; top: 84%; width: 10.546875%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;">
+        <div class="head" id="phead" data-val="3" style="left: 15%; bottom: 17%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
+        <div class="head" id="head1" data-val="3" style="right: 1%; bottom: 20%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
+        <div class="head" id="head2" data-val="3" style="right: 15%; top: 1%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
+        <div class="head" id="head3" data-val="3" style="left: 1%; top: 10%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
+        <p style="color: #000; font-size: 0.02rem; position: absolute; left: 24%; bottom: 16.8%;">You</p> 
+        <div id="phand" style="position: absolute; left: 15%; top: 84%; width: 8.4375%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;">
             <div class="sq" data-val="0"></div>
             <div class="sq" data-val="10"></div>
             <div class="sq" data-val="15"></div>

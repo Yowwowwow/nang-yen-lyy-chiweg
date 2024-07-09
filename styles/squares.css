@@ -8,8 +8,7 @@ div.sq{
     position: static;
     transform: rotate(90deg);
     height: 25%;
-    width: 80%;
-    margin-left: 10%;
+    width: 100%;
 }
 #phand div.sq:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
 div.sq{background-image: none;} /* use -2 to represent empty */
