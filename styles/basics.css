@@ -4,6 +4,25 @@ p{
     margin: 0;
     user-select: none;
 }
+div.head{
+    background-color: #888;
+    position: absolute;
+    width: 8.4375%;
+    height: 15%;
+    border: 0.002rem solid #000;
+}
+div.head div.shadow{
+    position: absolute;
+    border-radius: 50%;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
+    background: #fff;
+    opacity: 0.5;
+    filter: blur(0.0125rem);
+    transform: scale(1, 1);
+}
 div.chardis{
     background-color: #888;
     position: absolute;

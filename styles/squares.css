@@ -4,6 +4,27 @@ div.sq{
     width: 4.5%;
     background-size: 100% 100%;
 }
-div.sq[data-val="-2"]{background-image: none;}
+#phand div.sq{
+    position: static;
+    transform: rotate(90deg);
+    height: 25%;
+    width: 80%;
+    margin-left: 10%;
+}
+#phand div.sq:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
+div.sq{background-image: none;} /* use -2 to represent empty */
 div.sq[data-val="-1"]{background-image: url("../images/pc.svg");}
 div.sq[data-val="0"]{background-image: url("../images/00.svg");}
+div.sq[data-val="1"]{background-image: url("../images/01.svg");}
+div.sq[data-val="2"]{background-image: url("../images/02.svg");}
+div.sq[data-val="3"]{background-image: url("../images/03.svg");}
+div.sq[data-val="4"]{background-image: url("../images/04.svg");}
+div.sq[data-val="5"]{background-image: url("../images/05.svg");}
+div.sq[data-val="6"]{background-image: url("../images/06.svg");}
+div.sq[data-val="10"]{background-image: url("../images/10.svg");}
+div.sq[data-val="11"]{background-image: url("../images/11.svg");}
+div.sq[data-val="12"]{background-image: url("../images/12.svg");}
+div.sq[data-val="13"]{background-image: url("../images/13.svg");}
+div.sq[data-val="14"]{background-image: url("../images/14.svg");}
+div.sq[data-val="15"]{background-image: url("../images/15.svg");}
+div.sq[data-val="16"]{background-image: url("../images/16.svg");}
