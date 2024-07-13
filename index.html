@@ -28,7 +28,19 @@
     </div>
     <div id="game" style="visibility: hidden;">
         <button onclick="QUIT()" style="position: absolute; left: 0.5625%; top: 1%; width: 11%; height: 8%; font-size: 0.035rem;">QUIT</button>
-        <div id="sq0" class="sq" data-val="-1" style="left: 15%; top:25%;"></div>
+        <div id="field" style="position: absolute; width: 45%; height: 40%; top: 22%; left: 27.5%;">
+            <div class="sq" data-val="-1" data-pos="0"></div>
+            <div class="sq" data-val="-1" data-pos="1"></div>
+            <div class="sq" data-val="-1" data-pos="2"></div>
+            <div class="sq" data-val="-1" data-pos="3"></div>
+            <div class="sq" data-val="-1" data-pos="4"></div>
+            <div class="sq" data-val="-1" data-pos="5"></div>
+            <div class="sq" data-val="-1" data-pos="6"></div>
+            <div class="sq" data-val="-1" data-pos="7"></div>
+            <div class="sq" data-val="-1" data-pos="8"></div>
+            <div class="sq" data-val="-1" data-pos="16"></div>
+            <div class="sq" data-val="-1" data-pos="24"></div>
+        </div>
         <div class="head" id="phead" data-val="3" style="left: 15%; bottom: 17%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <div class="head" id="head1" data-val="3" style="right: 1%; bottom: 20%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <div class="head" id="head2" data-val="3" style="right: 15%; top: 1%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
@@ -39,6 +51,24 @@
             <div class="sq" data-val="10"></div>
             <div class="sq" data-val="15"></div>
             <div class="sq" data-val="15"></div>
+        </div>
+        <div class="ohand" id="hand1" style="position: absolute; right: 1%; bottom: 36%; width: 4.21875%; height: 30%; transform: rotate(180deg);">
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+        </div>
+        <div class="ohand" id="hand2" style="position: absolute; right: 24%; top: 1%; width: 4.21875%; height: 30%; transform-origin: 50% 12.5%; transform: rotate(90deg);">
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+        </div>
+        <div class="ohand" id="hand3" style="position: absolute; left: 1%; top: 26%; width: 4.21875%; height: 30%;">
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
+            <div class="sq" data-val="-1"></div>
         </div>
     </div>
 </div>

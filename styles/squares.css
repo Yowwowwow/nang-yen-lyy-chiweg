@@ -1,12 +1,31 @@
 div.sq{
-    position: absolute;
-    height: 8%;
-    width: 4.5%;
     background-size: 100% 100%;
 }
+#field div.sq{
+    position: absolute;
+    height: 25%;
+    width: 12.5%;
+}
+div.sq[data-pos="0"],div.sq[data-pos="8"],div.sq[data-pos="16"],div.sq[data-pos="24"]{left: 0;}
+div.sq[data-pos="1"],div.sq[data-pos="9"],div.sq[data-pos="17"],div.sq[data-pos="25"]{left: 12.5%;}
+div.sq[data-pos="2"],div.sq[data-pos="10"],div.sq[data-pos="18"],div.sq[data-pos="26"]{left: 25%;}
+div.sq[data-pos="3"],div.sq[data-pos="11"],div.sq[data-pos="19"],div.sq[data-pos="27"]{left: 37.5%;}
+div.sq[data-pos="4"],div.sq[data-pos="12"],div.sq[data-pos="20"],div.sq[data-pos="28"]{left: 50%;}
+div.sq[data-pos="5"],div.sq[data-pos="13"],div.sq[data-pos="21"],div.sq[data-pos="29"]{left: 62.5%;}
+div.sq[data-pos="6"],div.sq[data-pos="14"],div.sq[data-pos="22"],div.sq[data-pos="30"]{left: 75%;}
+div.sq[data-pos="7"],div.sq[data-pos="15"],div.sq[data-pos="23"],div.sq[data-pos="31"]{left: 87.5%;}
+div.sq[data-pos="0"],div.sq[data-pos="1"],div.sq[data-pos="2"],div.sq[data-pos="3"],div.sq[data-pos="4"],div.sq[data-pos="5"],div.sq[data-pos="6"],div.sq[data-pos="7"]{top: 0;}
+div.sq[data-pos="8"],div.sq[data-pos="9"],div.sq[data-pos="10"],div.sq[data-pos="11"],div.sq[data-pos="12"],div.sq[data-pos="13"],div.sq[data-pos="14"],div.sq[data-pos="15"]{top: 25%;}
+div.sq[data-pos="16"],div.sq[data-pos="17"],div.sq[data-pos="18"],div.sq[data-pos="19"],div.sq[data-pos="20"],div.sq[data-pos="21"],div.sq[data-pos="22"],div.sq[data-pos="23"]{top: 50%;}
+div.sq[data-pos="24"],div.sq[data-pos="25"],div.sq[data-pos="26"],div.sq[data-pos="27"],div.sq[data-pos="28"],div.sq[data-pos="29"],div.sq[data-pos="30"],div.sq[data-pos="31"]{top: 75%;}
 #phand div.sq{
     position: static;
     transform: rotate(90deg);
+    height: 25%;
+    width: 100%;
+}
+div.ohand div.sq{
+    position: static;
     height: 25%;
     width: 100%;
 }
