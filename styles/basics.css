@@ -1,8 +1,14 @@
 *{touch-action: manipulation; overflow: hidden;}
 img{pointer-events: none;}
+button{color: #1f2328;}
 p{
     margin: 0;
     user-select: none;
+}
+p.wind, p.score{
+    position: absolute;
+    color: #fff;
+    font-size: 0.03rem;
 }
 div.head{
     background-color: #888;
