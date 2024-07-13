@@ -28,40 +28,7 @@
     </div>
     <div id="game" style="visibility: hidden;">
         <button onclick="QUIT()" style="position: absolute; left: 0.5625%; top: 1%; width: 11%; height: 8%; font-size: 0.035rem;">QUIT</button>
-        <div id="field" style="position: absolute; width: 45%; height: 40%; top: 22.5%; left: 27.5%;">
-            <div class="sq" data-val="-1" data-pos="0"></div>
-            <div class="sq" data-val="-1" data-pos="1"></div>
-            <div class="sq" data-val="-1" data-pos="2"></div>
-            <div class="sq" data-val="-1" data-pos="3"></div>
-            <div class="sq" data-val="-1" data-pos="4"></div>
-            <div class="sq" data-val="-1" data-pos="5"></div>
-            <div class="sq" data-val="-1" data-pos="6"></div>
-            <div class="sq" data-val="-1" data-pos="7"></div>
-            <div class="sq" data-val="-1" data-pos="8"></div>
-            <div class="sq" data-val="-1" data-pos="9"></div>
-            <div class="sq" data-val="-1" data-pos="10"></div>
-            <div class="sq" data-val="-1" data-pos="11"></div>
-            <div class="sq" data-val="-1" data-pos="12"></div>
-            <div class="sq" data-val="-1" data-pos="13"></div>
-            <div class="sq" data-val="-1" data-pos="14"></div>
-            <div class="sq" data-val="-1" data-pos="15"></div>
-            <div class="sq" data-val="-1" data-pos="16"></div>
-            <div class="sq" data-val="-1" data-pos="17"></div>
-            <div class="sq" data-val="-1" data-pos="18"></div>
-            <div class="sq" data-val="-1" data-pos="19"></div>
-            <div class="sq" data-val="-1" data-pos="20"></div>
-            <div class="sq" data-val="-1" data-pos="21"></div>
-            <div class="sq" data-val="-1" data-pos="22"></div>
-            <div class="sq" data-val="-1" data-pos="23"></div>
-            <div class="sq" data-val="-1" data-pos="24"></div>
-            <div class="sq" data-val="-1" data-pos="25"></div>
-            <div class="sq" data-val="-1" data-pos="26"></div>
-            <div class="sq" data-val="-1" data-pos="27"></div>
-            <div class="sq" data-val="-1" data-pos="28"></div>
-            <div class="sq" data-val="-1" data-pos="29"></div>
-            <div class="sq" data-val="-1" data-pos="30"></div>
-            <div class="sq" data-val="-1" data-pos="31"></div>
-        </div>
+        <div id="field" style="position: absolute; width: 45%; height: 40%; top: 22.5%; left: 27.5%;"><div class="sq" data-val="-1" data-pos="0"></div><div class="sq" data-val="-1" data-pos="1"></div><div class="sq" data-val="-1" data-pos="2"></div><div class="sq" data-val="-1" data-pos="3"></div><div class="sq" data-val="-1" data-pos="4"></div><div class="sq" data-val="-1" data-pos="5"></div><div class="sq" data-val="-1" data-pos="6"></div><div class="sq" data-val="-1" data-pos="7"></div><div class="sq" data-val="-1" data-pos="8"></div><div class="sq" data-val="-1" data-pos="9"></div><div class="sq" data-val="-1" data-pos="10"></div><div class="sq" data-val="-1" data-pos="11"></div><div class="sq" data-val="-1" data-pos="12"></div><div class="sq" data-val="-1" data-pos="13"></div><div class="sq" data-val="-1" data-pos="14"></div><div class="sq" data-val="-1" data-pos="15"></div><div class="sq" data-val="-1" data-pos="16"></div><div class="sq" data-val="-1" data-pos="17"></div><div class="sq" data-val="-1" data-pos="18"></div><div class="sq" data-val="-1" data-pos="19"></div><div class="sq" data-val="-1" data-pos="20"></div><div class="sq" data-val="-1" data-pos="21"></div><div class="sq" data-val="-1" data-pos="22"></div><div class="sq" data-val="-1" data-pos="23"></div><div class="sq" data-val="-1" data-pos="24"></div><div class="sq" data-val="-1" data-pos="25"></div><div class="sq" data-val="-1" data-pos="26"></div><div class="sq" data-val="-1" data-pos="27"></div><div class="sq" data-val="-1" data-pos="28"></div><div class="sq" data-val="-1" data-pos="29"></div><div class="sq" data-val="-1" data-pos="30"></div><div class="sq" data-val="-1" data-pos="31"></div></div>
         <div class="head" id="phead" data-val="3" style="left: 15%; bottom: 17%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <div class="head" id="head1" data-val="3" style="right: 1%; bottom: 20%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <div class="head" id="head2" data-val="3" style="right: 15%; top: 1%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
@@ -75,6 +42,9 @@
         <p class="score" id="score1" style="right: 6%; bottom: 45%;">30000</p>
         <p class="score" id="score2" style="right: 29%; top: 8.7%;">30000</p>
         <p class="score" id="score3" style="left: 6%; top: 34.75%;">30000</p>
+        <div class="moves">
+            <!-- 6 buttons, top: listen, kang, tsumo; bottom: eat, pong, hu -->
+        </div>
         <div id="phand" style="position: absolute; left: 15%; top: 84%; width: 8.4375%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;">
             <div class="sq" data-val="0"></div>
             <div class="sq" data-val="10"></div>
@@ -100,6 +70,7 @@
             <div class="sq" data-val="-1"></div>
         </div>
     </div>
+    <div id="cover" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: #016529;"></div>
 </div>
 </body>
 <script src="scripts/CharacterSelect.js"></script>
