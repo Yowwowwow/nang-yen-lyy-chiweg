@@ -34,7 +34,7 @@
         <div class="head" id="head2" data-val="3" style="right: 15%; top: 1%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <div class="head" id="head3" data-val="3" style="left: 1%; top: 10%;"><div class="shadow"></div><img src="images/cnai head.svg"></div>
         <p style="color: #000; font-size: 0.02rem; position: absolute; left: 24%; bottom: 16.8%;">You</p>
-        <p class="wind" id="pwind" style="left: 24.75%; bottom: 21.5%;"><ruby>東<rt>east</rt></ruby></p>
+        <p class="wind" id="pwind" style="left: 24.75%; bottom: 21.5%;"><ruby style="color: #faa">東<rt>east</rt></ruby></p>
         <p class="wind" id="wind1" style="right: 6%; bottom: 36.5%;"><ruby>南<rt>south</rt></ruby></p>
         <p class="wind" id="wind2" style="right: 24.75%; top: 8.7%;"><ruby>西<rt>west</rt></ruby></p>
         <p class="wind" id="wind3" style="left: 6%; top: 26.25%;"><ruby>北<rt>north</rt></ruby></p>
@@ -93,15 +93,61 @@
     const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
     const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
     const headarr = ['<img src="images/puan head.svg">', '<img src="images/chyung head.svg">', '<img src="images/zra head.svg">', '<img src="images/cnai head.svg">'];
-    const windarr = ["<ruby>東<rt>east</rt></ruby>", "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
+    const windarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
+    const scorearr = [120000, 60000, 40000, 30000];
+    function Randint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}return b+Math.floor(Math.random()*a);}
+    function CryRandint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}const c=new Uint32Array(1);crypto.getRandomValues(c);return c[0]%a+b;}
+    var charord; //character order
+    var pchar;
+    var pwind;
+    var pscore;
 </script>
 <script src="scripts/CharacterSelect.js"></script>
 <script>
     function START(){
         title.style.visibility = "hidden";
         cover.style.visibility = "visible";
-        game.style.visibility = "visible";
         SaveChars();
+        Start2();
+    }
+    function Start2(){
+        let charinfo = WhoPlays();
+        pchar = charinfo[0];
+        charord = [];
+        for(let i=0;charinfo[1].length>0;i++){
+            let t = Randint(charinfo[1].length);
+            charord.push(charinfo[1][t]);
+            if(charord[i]==pchar)pwind=i;
+            charinfo[1].splice(t, 1);
+        }
+        heads[0].innerHTML = headarr[pchar];
+        winds[0].innerHTML = windarr[pwind];
+        scores[0].innerHTML = scorearr[charord.length-1];
+        for(let i=1;i<4;i++){ //set heads, winds, scores, hands(, draw, fuuro)
+            if(charord.length==1 || (charord.length==2 && i%2==1) || (charord.length==3 && i+pwind==3)){
+                heads[i].style.visibility = "hidden";
+                winds[i].style.visibility = "hidden";
+                scores[i].style.visibility = "hidden";
+                hands[i].style.visibility = "hidden";
+            }
+            else{
+                heads[i].style.removeProperty("visibility");
+                winds[i].style.removeProperty("visibility");
+                scores[i].style.removeProperty("visibility");
+                hands[i].style.removeProperty("visibility");
+                if(charord.length==2){
+                    heads[i].innerHTML = headarr[charord[(pwind+1)%2]];
+                    winds[i].innerHTML = windarr[(pwind+1)%2];
+                }
+                else{
+                    heads[i].innerHTML = headarr[charord[(pwind+i)%4]];
+                    winds[i].innerHTML = windarr[(pwind+i)%4];
+                }
+                scores[i].innerHTML = scorearr[charord.length-1];
+            }
+        }
+        game.style.visibility = "visible";
+        cover.style.visibility= "hidden";
     }
     function QUIT(){
         game.style.visibility = "hidden";

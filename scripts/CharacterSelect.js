@@ -49,3 +49,8 @@ function SaveChars(){
     }
     localStorage.setItem("chars", you.concat(otherthree.toString()));
 }
+function WhoPlays(){
+    let b = [];
+    for(let i=0;i<boxes.length;i++)if(boxes[i].checked)b.push(i);
+    let arr = [selected, b]; return arr;
+}
