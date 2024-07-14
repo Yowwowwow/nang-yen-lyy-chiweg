@@ -1,6 +1,15 @@
 *{touch-action: manipulation; overflow: hidden;}
-img{pointer-events: none;}
-button{color: #1f2328;}
+img{pointer-events: none; user-select: none;}
+button{color: #1f2328; user-select: none;}
+div.moves button{
+    position: absolute;
+    width: 24.571%; /*0.429%*/
+    height: 48.999%; /*1.001%*/
+    font-size: 0.02rem;
+    /* border: 0.00125rem solid #1f2328;
+    border-radius: 0.005rem; */
+}
+div.moves button:disabled{visibility: hidden;}
 p{
     margin: 0;
     user-select: none;
