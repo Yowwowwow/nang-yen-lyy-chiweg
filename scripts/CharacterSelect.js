@@ -1,8 +1,5 @@
 var selected=0;
 var pcount=4;
-const disps = [document.getElementById("cd0"), document.getElementById("cd1"), document.getElementById("cd2"), document.getElementById("cd3")];
-const boxes = [document.getElementById("cb0"), document.getElementById("cb1"), document.getElementById("cb2"), document.getElementById("cb3")];
-const pdisp = document.getElementById("playercount");
 var last=localStorage.getItem("chars");
 while(last!=null){
     let you = parseInt(last[0]);

@@ -43,13 +43,13 @@
         <p class="score" id="score2" style="right: 29%; top: 8.7%;">30000</p>
         <p class="score" id="score3" style="left: 6%; top: 34.75%;">30000</p>
         <div class="moves" style="position: absolute; width: 35%; height: 15%; right: 14%; bottom: 17%;">
-            <button disabled style="left: 0.5005%; bottom: 0.2145%;"><ruby>Chow<rt>吃</rt></ruby></button>
-            <button disabled style="left: 0.5005%; top: 0.2145%;"><ruby>Pong<rt>碰</rt></ruby></button>
-            <button disabled style="left: 25.5005%; bottom: 0.2145%;"><ruby>Kong<rt>槓</rt></ruby></button>
-            <button disabled style="left: 25.5005%; top: 0.2145%;"><ruby>Riichi<rt>聽</rt></ruby></button>
-            <button disabled style="left: 50.5005%; bottom: 0.2145%;"><ruby>Win<rt>胡</rt></ruby></button>
-            <button disabled style="left: 50.5005%; top: 0.2145%; font-size: 0.015rem; text-wrap: nowrap;"><ruby>Self-draw<rt>自摸</rt></ruby></button>
-            <button disabled style="left: 75.5005%; bottom: 0.2145%;">Cancel</button>
+            <button disabled id="m0" style="left: 0.5005%; bottom: 0.2145%;"><ruby>Chow<rt>吃</rt></ruby></button>
+            <button disabled id="m1" style="left: 0.5005%; top: 0.2145%;"><ruby>Pong<rt>碰</rt></ruby></button>
+            <button disabled id="m2" style="left: 25.5005%; bottom: 0.2145%;"><ruby>Kong<rt>槓</rt></ruby></button>
+            <button disabled id="m3" style="left: 25.5005%; top: 0.2145%;"><ruby>Riichi<rt>聽</rt></ruby></button>
+            <button disabled id="m4" style="left: 50.5005%; bottom: 0.2145%;"><ruby>Win<rt>胡</rt></ruby></button>
+            <button disabled id="m5" style="left: 50.5005%; top: 0.2145%; font-size: 0.015rem; text-wrap: nowrap;"><ruby>Self-draw<rt>自摸</rt></ruby></button>
+            <button disabled id="m6" style="left: 75.5005%; bottom: 0.2145%;">Cancel</button>
         </div>
         <div id="phand" style="position: absolute; left: 15%; top: 84%; width: 8.4375%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;">
             <div class="sq" data-val="0"></div>
@@ -79,12 +79,27 @@
     <div id="cover" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: #016529;"></div>
 </div>
 </body>
+<script> //Initialization
+    const title = document.getElementById("title");
+    const game = document.getElementById("game");
+    const cover = document.getElementById("cover");
+    const disps = [document.getElementById("cd0"), document.getElementById("cd1"), document.getElementById("cd2"), document.getElementById("cd3")];
+    const boxes = [document.getElementById("cb0"), document.getElementById("cb1"), document.getElementById("cb2"), document.getElementById("cb3")];
+    const pdisp = document.getElementById("playercount");
+    const field = document.getElementById("field");
+    const heads = [document.getElementById("phead"), document.getElementById("head1"), document.getElementById("head2"), document.getElementById("head3")];
+    const winds = [document.getElementById("pwind"), document.getElementById("wind1"), document.getElementById("wind2"), document.getElementById("wind3")];
+    const scores = [document.getElementById("pscore"), document.getElementById("score1"), document.getElementById("score2"), document.getElementById("score3")];
+    const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
+    const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
+    const headarr = ['<img src="images/puan head.svg">', '<img src="images/chyung head.svg">', '<img src="images/zra head.svg">', '<img src="images/cnai head.svg">'];
+    const windarr = ["<ruby>東<rt>east</rt></ruby>", "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
+</script>
 <script src="scripts/CharacterSelect.js"></script>
 <script>
-    var title = document.getElementById("title");
-    var game = document.getElementById("game");
     function START(){
         title.style.visibility = "hidden";
+        cover.style.visibility = "visible";
         game.style.visibility = "visible";
         SaveChars();
     }
