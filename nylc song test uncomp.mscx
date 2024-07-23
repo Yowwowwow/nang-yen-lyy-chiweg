@@ -327,7 +327,6 @@
           <controller ctrl="32" value="0"/>
           <program value="4"/>
           <synti>Fluid</synti>
-          <solo>1</solo>
           <midiPort>0</midiPort>
           <midiChannel>1</midiChannel>
           </Channel>
@@ -399,7 +398,6 @@
           <controller ctrl="32" value="0"/>
           <program value="4"/>
           <synti>Fluid</synti>
-          <solo>1</solo>
           <midiPort>0</midiPort>
           <midiChannel>3</midiChannel>
           </Channel>
@@ -471,7 +469,6 @@
           <controller ctrl="32" value="0"/>
           <program value="4"/>
           <synti>Fluid</synti>
-          <solo>1</solo>
           <midiPort>0</midiPort>
           <midiChannel>4</midiChannel>
           </Channel>
@@ -2980,9 +2977,10 @@ might have to higher the pitch afterwards</text>
             <dots>1</dots>
             <durationType>eighth</durationType>
             <Note>
-              <pitch>67</pitch>
-              <tpc>15</tpc>
-              <tpc2>16</tpc2>
+              <pitch>69</pitch>
+              <tpc>17</tpc>
+              <tpc2>18</tpc2>
+              <tuning>-200</tuning>
               </Note>
             <Note>
               <pitch>70</pitch>
@@ -2994,9 +2992,10 @@ might have to higher the pitch afterwards</text>
             <dots>1</dots>
             <durationType>eighth</durationType>
             <Note>
-              <pitch>67</pitch>
-              <tpc>15</tpc>
-              <tpc2>16</tpc2>
+              <pitch>69</pitch>
+              <tpc>17</tpc>
+              <tpc2>18</tpc2>
+              <tuning>-200</tuning>
               </Note>
             <Note>
               <pitch>74</pitch>
