@@ -2,6 +2,7 @@
 img{pointer-events: none; user-select: none;}
 button{color: #1f2328; user-select: none;}
 #setbut:hover, #closesetbut:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
+#setbg input[type="range"]{position: absolute; left: 23%; width: 55%;}
 div.moves button{
     position: absolute;
     width: 24.571%; /*0.429%*/
