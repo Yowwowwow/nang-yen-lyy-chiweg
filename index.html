@@ -15,7 +15,7 @@
     /* * {color: #1f2328} */
 </style>
 <body style="margin:0; overflow: hidden; background-color: #999;">
-<audio autoplay><source src="sounds/dòu nǎng yěn lyỳ chiwěg̏.mp3" type="audio/mpeg"></audio>
+<audio id="bgm" src="sounds/dòu nǎng yěn lyỳ chiwěg̏.mp3" loop></audio>
 <div id="box" class="fixed">
     <div id="title" style="visibility: visible;">
         <img src="images/logo.svg" style="filter: drop-shadow(0 0 0.0015rem #fff); position: absolute; left: 20%; top: 5%; width: 60%;">
@@ -77,6 +77,14 @@
             <div class="sq" data-val="-1"></div>
         </div>
     </div>
+    <div id="settings">
+        <div id="setbut" onclick="Openbg()" style="position: absolute; right: 0.002rem; bottom: 0.002rem; width: 5.625%; height: 10%; background-size: 100% 100%; background-image: url('images/settings.svg');"></div>
+        <div id="setbg" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.3);">
+        <div style="position: absolute; width: 80%; height: 80%; left: 10%; top: 10%; background-color: #018034; border: 0.0032rem solid #000;">
+            <div id="closesetbut" onclick="Closebg()" style="position: absolute; right: 0.0015rem; top: 0.0015rem; width: 4.21875%; height: 7.5%; background-size: 100% 100%; background-image: url('images/cross.svg');"></div>
+        </div>
+        </div>
+    </div>
     <div id="cover" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: #016529;"></div>
 </div>
 </body>
@@ -104,6 +112,7 @@
     var pscore;
 </script>
 <script src="scripts/CharacterSelect.js"></script>
+<script src="scripts/Settings.js"></script>
 <script>
     function START(){
         title.style.visibility = "hidden";
