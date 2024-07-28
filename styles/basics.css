@@ -2,7 +2,33 @@
 img{pointer-events: none; user-select: none;}
 button{color: #1f2328; user-select: none;}
 #setbut:hover, #closesetbut:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
-#setbg input[type="range"]{position: absolute; left: 23%; width: 55%;}
+#setbg input[type="range"]
+{
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    left: 23%;
+    width: 55%;
+    height: 0.006rem;
+    border-radius: 0.01rem;
+    background-color: #000;
+    overflow: visible;
+}
+#setbg input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.015rem;
+    height: 0.015rem;
+    border-radius: 50%; 
+    background: #cfc;
+}
+#setbg input[type="range"]::-webkit-slider-thumb:hover{filter: brightness(1.05) drop-shadow(0 0 0.001rem #fff);}
+#setbg input[type="range"]::-moz-range-thumb {
+    width: 0.015rem;
+    height: 0.015rem;
+    border-radius: 50%; 
+    background: #cfc;
+}
 div.moves button{
     position: absolute;
     width: 24.571%; /*0.429%*/
