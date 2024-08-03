@@ -93,12 +93,22 @@
         </div>
         </div>
     </div>
+    <div id="confirmquit">
+    <div id="cnfbg" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.3);">
+        <div style="position: absolute; width: 80%; height: 80%; left: 10%; top: 10%; background-color: #018034; border: 0.0032rem solid #000;">
+            <p style="font-size: 0.05rem; position: absolute; width: 100%; height: 30%; left: 0; top: 25%; text-align: center;">Quit and return to main menu?</p>
+            <button onclick="RealQUIT()" style="position: absolute; left: 12%; bottom: 18%; width: 30%; height: 18%; font-size: 0.04rem;">YES✔️</button>
+            <button onclick="DontQUIT()" style="position: absolute; right: 12%; bottom: 18%; width: 30%; height: 18%; font-size: 0.04rem;">NO❌</button>
+        </div>
+    </div>
+    </div>
     <div id="cover" style="visibility: hidden; position: absolute; width: 100%; height: 100%; background: #016529;"></div>
 </div>
 </body>
 <script> //Initialization
     const title = document.getElementById("title");
     const game = document.getElementById("game");
+    const confirmquit = document.getElementById("cnfbg");
     const cover = document.getElementById("cover");
     const disps = [document.getElementById("cd0"), document.getElementById("cd1"), document.getElementById("cd2"), document.getElementById("cd3")];
     const boxes = [document.getElementById("cb0"), document.getElementById("cb1"), document.getElementById("cb2"), document.getElementById("cb3")];
@@ -122,6 +132,7 @@
 <script src="scripts/CharacterSelect.js"></script>
 <script src="scripts/Settings.js"></script>
 <script>
+    //cover.style.visibility = "hidden";
     function START(){
         title.style.visibility = "hidden";
         cover.style.visibility = "visible";
@@ -168,8 +179,15 @@
         cover.style.visibility= "hidden";
     }
     function QUIT(){
+       confirmquit.style.visibility = "visible";
+    }
+    function RealQUIT(){
+        confirmquit.style.visibility = "hidden";
         game.style.visibility = "hidden";
         title.style.visibility = "visible";
+    }
+    function DontQUIT(){
+       confirmquit.style.visibility = "hidden";
     }
 </script>
 <!-- <script src="scripts/BoxTurner.js"></script> -->
