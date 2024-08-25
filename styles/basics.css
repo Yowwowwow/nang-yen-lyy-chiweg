@@ -42,7 +42,7 @@ p{
     margin: 0;
     user-select: none;
 }
-p.wind, p.score{
+p.wind, p.score, #currwind{
     position: absolute;
     color: #fff;
     font-size: 0.03rem;
