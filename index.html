@@ -103,26 +103,35 @@
     const boxes = [document.getElementById("cb0"), document.getElementById("cb1"), document.getElementById("cb2"), document.getElementById("cb3")];
     const pdisp = document.getElementById("playercount");
     const field = document.getElementById("field");
+    const fdpcs = field.children; //field pieces
     const heads = [document.getElementById("phead"), document.getElementById("head1"), document.getElementById("head2"), document.getElementById("head3")];
     const winds = [document.getElementById("pwind"), document.getElementById("wind1"), document.getElementById("wind2"), document.getElementById("wind3")];
+    const currwind = document.getElementById("currwind");
     const scores = [document.getElementById("pscore"), document.getElementById("score1"), document.getElementById("score2"), document.getElementById("score3")];
     const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
     const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
     const headarr = ['<img src="images/puan head.svg">', '<img src="images/chyung head.svg">', '<img src="images/zra head.svg">', '<img src="images/cnai head.svg">'];
     const windarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
+    const gamewind = [['<ruby>東<rt>east</rt></ruby>1','<ruby>東<rt>east</rt></ruby>2','<ruby>東<rt>east</rt></ruby>3','<ruby>東<rt>east</rt></ruby>4'],['<ruby>南<rt>east</rt></ruby>1','<ruby>南<rt>east</rt></ruby>2','<ruby>南<rt>east</rt></ruby>3','<ruby>南<rt>east</rt></ruby>4'],['<ruby>西<rt>east</rt></ruby>1','<ruby>西<rt>east</rt></ruby>2','<ruby>西<rt>east</rt></ruby>3','<ruby>西<rt>east</rt></ruby>4'],['<ruby>北<rt>east</rt></ruby>1','<ruby>北<rt>east</rt></ruby>2','<ruby>北<rt>east</rt></ruby>3','<ruby>北<rt>east</rt></ruby>4']];
     const noredwindarr = ['<ruby>東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
     const allredwinarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', '<ruby style="color: #faa">南<rt>south</rt></ruby>', '<ruby style="color: #faa">西<rt>west</rt></ruby>', '<ruby style="color: #faa">北<rt>north</rt></ruby>'];
     const scorearr = [120000, 60000, 40000, 30000];
     function Randint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}return b+Math.floor(Math.random()*a);}
     function CryRandint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}const c=new Uint32Array(1);crypto.getRandomValues(c);return c[0]%a+b;}
+    //max is non-inclusive
+    function PieceOf(val){return `<div class="sq" data-val="${num}"></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
+    function SetField(pos,val){fdpcs[pos].dataset.val=val};
     var charord; //character order
     var pchar;
     var pwind;
     var pscore;
     var pnum; //number of players
+    var gwind = [0, 0]; //current game wind
+    var mtn; //mountain (pai shan)
 </script>
 <script src="scripts/CharacterSelect.js"></script>
 <script src="scripts/Settings.js"></script>
+<script src="scripts/GameManager.js"></script>
 <script>
     //cover.style.visibility = "hidden";
     function START(){
@@ -168,8 +177,10 @@
             }
         }
         pnum = charord.length;
+        gwind = [0, 0];
         game.style.visibility = "visible";
         cover.style.visibility= "hidden";
+        GMNGStartRound();
     }
     function QUIT(){
        confirmquit.style.visibility = "visible";
