@@ -24,9 +24,29 @@ div.sq[data-pos="24"],div.sq[data-pos="25"],div.sq[data-pos="26"],div.sq[data-po
     height: 25%;
     width: 100%;
 }
+#pdraw div.sq{
+    position: static;
+    transform: rotate(90deg);
+    height: 100%;
+    width: 100%;
+}
+#pdraw[data-mov="0"]{left: 52.96875%;}
+#pdraw[data-mov="1"]{left: 27.65625%;}
+#draw1[data-mov="0"]{bottom: 69.75%;}
+#draw1[data-mov="1"]{bottom: 47.25%;}
+#draw2[data-mov="0"]{right: 42.984375%;}
+#draw2[data-mov="1"]{right: 30.328125%;}
+#draw3[data-mov="0"]{top: 59.75%;}
+#draw3[data-mov="1"]{top: 37.25%;}
 div.ohand div.sq{
     position: static;
+    transform: rotate(90deg);
     height: 25%;
+    width: 100%;
+}
+div.odraw div.sq{
+    position: static;
+    height: 100%;
     width: 100%;
 }
 #pfulu div.sq, div.ofulu div.sq{
@@ -35,7 +55,7 @@ div.ohand div.sq{
     height: 20%;
     width: 100%;
 }
-#phand div.sq:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
+#phand div.sq:hover, #pdraw div.sq:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
 div.sq{background-image: none;} /* use -2 to represent empty */
 div.sq[data-val="-1"]{background-image: url("../images/pc.svg");}
 div.sq[data-val="0"]{background-image: url("../images/00.svg");}

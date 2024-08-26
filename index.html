@@ -56,12 +56,16 @@
         <!-- <div class="sq" data-val="0"></div> -->
         <div id="phand" style="position: absolute; left: 15%; top: 84%; width: 8.4375%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;"></div>
         <div id="pfulu" style="position: absolute; left: 50%; top: 91.5%; width: 4.21875%; height: 37.5%; transform-origin: 50% 10%; transform: rotate(270deg);"></div>
+        <div id="pdraw" data-mov="0" style="position: absolute; top: 84%; width: 8.4375%; height: 15%; transform: rotate(270deg); overflow: visible;"></div> 
         <div class="ohand" id="hand1" style="position: absolute; right: 1%; bottom: 36%; width: 4.21875%; height: 30%; transform: rotate(180deg);"></div>
         <div class="ofulu" id="fulu1" style="position: absolute; right: 1%; bottom: 58.5%; width: 4.21875%; height: 37.5%; transform: rotate(180deg);"></div>
+        <div class="odraw" data-mov="0" id="draw1" style="position: absolute; right: 1%; width: 4.21875%; height: 7.5%; transform: rotate(270deg);"></div>
         <div class="ohand" id="hand2" style="position: absolute; right: 24%; top: 1%; width: 4.21875%; height: 30%; transform-origin: 50% 12.5%; transform: rotate(90deg);"></div>
         <div class="ofulu" id="fulu2" style="position: absolute; right: 36.65625%; top: 1%; width: 4.21875%; height: 37.5%; transform-origin: 50% 10%; transform: rotate(90deg);"></div>
+        <div class="odraw" data-mov="0" id="draw2" style="position: absolute; top: 1%; width: 4.21875%; height: 7.5%; transform: rotate(180deg);"></div>
         <div class="ohand" id="hand3" style="position: absolute; left: 1%; top: 26%; width: 4.21875%; height: 30%;"></div>
         <div class="ofulu" id="fulu3" style="position: absolute; left: 1%; top: 48.5%; width: 4.21875%; height: 37.5%;"></div>
+        <div class="odraw" data-mov="0" id="draw3" style="position: absolute; left: 1%; width: 4.21875%; height: 7.5%; transform: rotate(90deg);"></div>
     </div>
     <div id="settings">
         <div id="setbut" onclick="Openbg()" style="position: absolute; right: 0.002rem; bottom: 0.002rem; width: 5.625%; height: 10%; background-size: 100% 100%; background-image: url('images/settings.svg');"></div>
@@ -110,6 +114,8 @@
     const scores = [document.getElementById("pscore"), document.getElementById("score1"), document.getElementById("score2"), document.getElementById("score3")];
     const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
     const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
+    const fulus = [document.getElementById("pfulu"), document.getElementById("fulu1"), document.getElementById("fulu2"), document.getElementById("fulu3")];
+    const draws = [document.getElementById("pdraw"), document.getElementById("draw1"), document.getElementById("draw2"), document.getElementById("draw3")];
     const headarr = ['<img src="images/puan head.svg">', '<img src="images/chyung head.svg">', '<img src="images/zra head.svg">', '<img src="images/cnai head.svg">'];
     const windarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
     const gamewind = [['<ruby>東<rt>east</rt></ruby>1','<ruby>東<rt>east</rt></ruby>2','<ruby>東<rt>east</rt></ruby>3','<ruby>東<rt>east</rt></ruby>4'],['<ruby>南<rt>east</rt></ruby>1','<ruby>南<rt>east</rt></ruby>2','<ruby>南<rt>east</rt></ruby>3','<ruby>南<rt>east</rt></ruby>4'],['<ruby>西<rt>east</rt></ruby>1','<ruby>西<rt>east</rt></ruby>2','<ruby>西<rt>east</rt></ruby>3','<ruby>西<rt>east</rt></ruby>4'],['<ruby>北<rt>east</rt></ruby>1','<ruby>北<rt>east</rt></ruby>2','<ruby>北<rt>east</rt></ruby>3','<ruby>北<rt>east</rt></ruby>4']];

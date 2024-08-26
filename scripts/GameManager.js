@@ -7,4 +7,5 @@ function GMNGStartRound(){
         mtn.push(bag[tmp]);
         bag.splice(tmp, 1);
     }
+    //TODO: Complete initialization of each new shyun2
 }
