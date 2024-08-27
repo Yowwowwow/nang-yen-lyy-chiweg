@@ -39,7 +39,7 @@
         <p class="wind" id="wind1" style="right: 6%; bottom: 36.5%;"><ruby>南<rt>south</rt></ruby></p>
         <p class="wind" id="wind2" style="right: 24.75%; top: 8.7%;"><ruby>西<rt>west</rt></ruby></p>
         <p class="wind" id="wind3" style="left: 6%; top: 26.25%;"><ruby>北<rt>north</rt></ruby></p>
-        <p id="currwind" style="left: 0.25%; bottom: 0.1%;"><ruby>東<rt>east</rt></ruby>1</p>
+        <p id="currwind" style="left: 0.25%; bottom: 0.1%;"><ruby>東<rt>east</rt></ruby>1<ruby>連<rt>streak</rt>0<ruby>流<rt>draws</rt>0</p>
         <p class="score" id="pscore" style="left: 29%; bottom: 21.5%;">30000</p>
         <p class="score" id="score1" style="right: 6%; bottom: 45%;">30000</p>
         <p class="score" id="score2" style="right: 29%; top: 8.7%;">30000</p>
@@ -119,6 +119,7 @@
     const headarr = ['<img src="images/puan head.svg">', '<img src="images/chyung head.svg">', '<img src="images/zra head.svg">', '<img src="images/cnai head.svg">'];
     const windarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
     const gamewind = [['<ruby>東<rt>east</rt></ruby>1','<ruby>東<rt>east</rt></ruby>2','<ruby>東<rt>east</rt></ruby>3','<ruby>東<rt>east</rt></ruby>4'],['<ruby>南<rt>east</rt></ruby>1','<ruby>南<rt>east</rt></ruby>2','<ruby>南<rt>east</rt></ruby>3','<ruby>南<rt>east</rt></ruby>4'],['<ruby>西<rt>east</rt></ruby>1','<ruby>西<rt>east</rt></ruby>2','<ruby>西<rt>east</rt></ruby>3','<ruby>西<rt>east</rt></ruby>4'],['<ruby>北<rt>east</rt></ruby>1','<ruby>北<rt>east</rt></ruby>2','<ruby>北<rt>east</rt></ruby>3','<ruby>北<rt>east</rt></ruby>4']];
+    function InfoStr(a,b,c,d){return gamewind[a][b]+`<ruby>連<rt>streak</rt>${c}<ruby>流<rt>draws</rt>${d}`;}
     const noredwindarr = ['<ruby>東<rt>east</rt></ruby>', "<ruby>南<rt>south</rt></ruby>", "<ruby>西<rt>west</rt></ruby>", "<ruby>北<rt>north</rt></ruby>"];
     const allredwinarr = ['<ruby style="color: #faa">東<rt>east</rt></ruby>', '<ruby style="color: #faa">南<rt>south</rt></ruby>', '<ruby style="color: #faa">西<rt>west</rt></ruby>', '<ruby style="color: #faa">北<rt>north</rt></ruby>'];
     const scorearr = [120000, 60000, 40000, 30000];
