@@ -47,7 +47,7 @@ p.wind, p.score{
     color: #fff;
     font-size: 0.03rem;
 }
-#currwind{position:absolute;color:#fff;font-size:0.025rem;}
+#infostr{position:absolute;color:#fff;font-size:0.025rem;}
 div.head{
     background-color: #888;
     position: absolute;

@@ -39,7 +39,7 @@
         <p class="wind" id="wind1" style="right: 6%; bottom: 36.5%;"><ruby>南<rt>south</rt></ruby></p>
         <p class="wind" id="wind2" style="right: 24.75%; top: 8.7%;"><ruby>西<rt>west</rt></ruby></p>
         <p class="wind" id="wind3" style="left: 6%; top: 26.25%;"><ruby>北<rt>north</rt></ruby></p>
-        <p id="currwind" style="left: 0.25%; bottom: 0.1%;"><ruby>東<rt>east</rt></ruby>1<ruby>連<rt>streak</rt>0<ruby>流<rt>draws</rt>0</p>
+        <p id="infostr" style="left: 0.25%; bottom: 0.1%;"><ruby>東<rt>east</rt></ruby>1<ruby>連<rt>streak</rt>0<ruby>流<rt>draws</rt>0</p>
         <p class="score" id="pscore" style="left: 29%; bottom: 21.5%;">30000</p>
         <p class="score" id="score1" style="right: 6%; bottom: 45%;">30000</p>
         <p class="score" id="score2" style="right: 29%; top: 8.7%;">30000</p>
@@ -110,7 +110,7 @@
     const fdpcs = field.children; //field pieces
     const heads = [document.getElementById("phead"), document.getElementById("head1"), document.getElementById("head2"), document.getElementById("head3")];
     const winds = [document.getElementById("pwind"), document.getElementById("wind1"), document.getElementById("wind2"), document.getElementById("wind3")];
-    const currwind = document.getElementById("currwind");
+    const infostr = document.getElementById("infostr");
     const scores = [document.getElementById("pscore"), document.getElementById("score1"), document.getElementById("score2"), document.getElementById("score3")];
     const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
     const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
@@ -127,13 +127,16 @@
     function CryRandint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}const c=new Uint32Array(1);crypto.getRandomValues(c);return c[0]%a+b;}
     //max is non-inclusive
     function PieceOf(val){return `<div class="sq" data-val="${num}"></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
-    function SetField(pos,val){fdpcs[pos].dataset.val=val};
-    var charord; //character order
+    function SetField(pos,val=-3,ori=-1){if(val!=-3)fdpcs[pos].dataset.val=val;if(ori!=-1)fdpcs[pos].dataset.ori=ori;}
+    var charord; //character order, [0]=east [1]=south... 0=puan 1=chyung 2=zra 3=cnai
+    var charpos; //[0]=east... 0=bottom, 1=right, 2=top, 3=left
     var pchar;
     var pwind;
     var pscore;
     var pnum; //number of players
     var gwind = [0, 0]; //current game wind
+    var streak; //liyen2 drruang1 count
+    var goulash; //liou2 jyu2 count
     var mtn; //mountain (pai shan)
 </script>
 <script src="scripts/CharacterSelect.js"></script>
@@ -184,7 +187,9 @@
             }
         }
         pnum = charord.length;
-        gwind = [0, 0];
+        charpos=[]; for(let i=0;i<pnum;i++)charpos.push(-1);
+        for(let i=0;i<pnum;i++)for(let j=0;j<4;j++)if(winds[j].style.visibility!=="hidden"&&winds[j].innerHTML===windarr[i])charpos[i]=j;
+        gwind = [0, 0]; streak = 0; goulash = 0;
         game.style.visibility = "visible";
         cover.style.visibility= "hidden";
         GMNGStartRound();

@@ -1,5 +1,7 @@
 div.sq{
     background-size: 100% 100%;
+    transform-origin: 50% 50%;
+    transform: rotate(0);
 }
 #field div.sq{
     position: absolute;
@@ -18,6 +20,7 @@ div.sq[data-pos="0"],div.sq[data-pos="1"],div.sq[data-pos="2"],div.sq[data-pos="
 div.sq[data-pos="8"],div.sq[data-pos="9"],div.sq[data-pos="10"],div.sq[data-pos="11"],div.sq[data-pos="12"],div.sq[data-pos="13"],div.sq[data-pos="14"],div.sq[data-pos="15"]{top: 25%;}
 div.sq[data-pos="16"],div.sq[data-pos="17"],div.sq[data-pos="18"],div.sq[data-pos="19"],div.sq[data-pos="20"],div.sq[data-pos="21"],div.sq[data-pos="22"],div.sq[data-pos="23"]{top: 50%;}
 div.sq[data-pos="24"],div.sq[data-pos="25"],div.sq[data-pos="26"],div.sq[data-pos="27"],div.sq[data-pos="28"],div.sq[data-pos="29"],div.sq[data-pos="30"],div.sq[data-pos="31"]{top: 75%;}
+div.sq[data-ori="1"]{transform:rotate(270deg);}div.sq[data-ori="2"]{transform:rotate(180deg);}div.sq[data-ori="3"]{transform:rotate(90deg);}
 #phand div.sq{
     position: static;
     transform: rotate(90deg);
