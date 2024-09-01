@@ -1,6 +1,8 @@
 var dealtpieces;
 var playedpieces;
 var sea; //list of played pieces
+var newp; //last played piece
+const nodraw = 87;
 function GMNGStartRound(){
     let bag = [0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,10,11,11,12,12,13,13,14,14,15,15,16,16,16,16,16];
     mtn = [];
@@ -49,22 +51,27 @@ function Give1Piece(){
     dealtpieces++;
     timeoutstoclear.push(lasttimeoutid = setTimeout(Give1Piece, 100));
 }
-function TurnStart(){
-    if(mtn.length<=6-pnum){return;}//too few pieces left, liou2 jyu2
+function TurnStart(arg=0){
     let isplayer = turnp==pwind;
-    jin = DrawFromMtn();
-    SetField(dealtpieces, -2);
-    dealtpieces++;
-    draws[charpos[turnp]].innerHTML = PieceOf(isplayer?jin:-1);
+    if(arg!==nodraw){
+        if(mtn.length<=6-pnum){return;}//too few pieces left, liou2 jyu2
+        jin = DrawFromMtn();
+        SetField(dealtpieces, -2);
+        dealtpieces++;
+        draws[charpos[turnp]].innerHTML = PieceOf(isplayer?jin:-1);
+    }
+    else{
+        jin = -1;
+    }
     if(!isplayer){ComputerThinksPlay();}
     else{
         for(let i=0, arr=hands[charpos[turnp]].children;i<arr.length;i++)arr[i].onclick=()=>{PlayerPlays(i);};
-        draws[charpos[turnp]].children[0].onclick=()=>{PlayerPlays(4);};
+        if(jin!=-1)draws[charpos[turnp]].children[0].onclick=()=>{PlayerPlays(4);};
     }
 }
 function ComputerThinksPlay(){
     //TODO: will need to implement kang&riichi&tsumo
-    let ans = Randint(srrou[turnp].length+1);
+    let ans = Randint(srrou[turnp].length+(jin==-1?0:1));
     timeoutstoclear.push(setTimeout(()=>{ComputerPlays(ans);}, Randint(325, 675)));
 }
 function ComputerPlays(num){
@@ -86,8 +93,27 @@ function ComputerDonePlaying(num){
     SetField(playedpieces, num, charpos[turnp]);
     playedpieces++;
     sea.push(num);
+    newp = num;
     //TODO: Now, check chi&pong&kang&ron before proceeding to the next player's turn
+    //Logic: if player can (ron&&(chi||pong||kang)), give all options to player first, but if player chooses to
+    //chi, pong or kang (not ron), the computers may interrupt the player by choosing a higher priority action
+    //(in this case, must be ron). However, when player can only (chi||pong||kang) (but not ron), we simply
+    //just check whether computers want to perform a higher priority action before letting player choose, and
+    //the player will not be interupted in this case. Priority high to low: 1. Ron, 2. Pong closer to the player
+    //discarding the piece when two players can pong at the same time, 3. Further/solo pong or kang, 4. chi
+    RonCheck();
+    PongKangCheck();
 }
 function PlayerPlays(num){
     console.log(num);
+}
+function PongKangCheck(){
+    if(newp!=6&&newp!=16)return;
+    for(let i=1;i<pnum;i++){
+        let j = (turnp+i)%pnum;
+        //TODO: if this player has 2 or 3 of the same piece etc...
+    }
+}
+function RonCheck(){
+    //TODO: this too hard bruh, will do later
 }
