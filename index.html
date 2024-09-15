@@ -45,13 +45,13 @@
         <p class="score" id="score2" style="right: 29%; top: 8.7%;">30000</p>
         <p class="score" id="score3" style="left: 6%; top: 34.75%;">30000</p>
         <div class="moves" style="position: absolute; width: 35%; height: 15%; right: 14%; bottom: 17%;">
-            <button disabled id="m0" style="left: 0.5005%; bottom: 0.2145%;"><ruby>Chow<rt>吃</rt></ruby></button>
-            <button disabled id="m1" style="left: 0.5005%; top: 0.2145%;"><ruby>Pong<rt>碰</rt></ruby></button>
-            <button disabled id="m2" style="left: 25.5005%; bottom: 0.2145%;"><ruby>Kong<rt>槓</rt></ruby></button>
-            <button disabled id="m3" style="left: 25.5005%; top: 0.2145%;"><ruby>Riichi<rt>聽</rt></ruby></button>
-            <button disabled id="m4" style="left: 50.5005%; bottom: 0.2145%;"><ruby>Win<rt>胡</rt></ruby></button>
-            <button disabled id="m5" style="left: 50.5005%; top: 0.2145%; font-size: 0.015rem; text-wrap: nowrap;"><ruby>Self-draw<rt>自摸</rt></ruby></button>
-            <button disabled id="m6" style="left: 75.5005%; bottom: 0.2145%;">Cancel</button>
+            <button disabled id="m0" onclick="MoveButton(0)" style="left: 0.5005%; bottom: 0.2145%;"><ruby>Chow<rt>吃</rt></ruby></button>
+            <button disabled id="m1" onclick="MoveButton(1)" style="left: 0.5005%; top: 0.2145%;"><ruby>Pong<rt>碰</rt></ruby></button>
+            <button disabled id="m2" onclick="MoveButton(2)" style="left: 25.5005%; bottom: 0.2145%;"><ruby>Kong<rt>槓</rt></ruby></button>
+            <button disabled id="m3" onclick="MoveButton(3)" style="left: 25.5005%; top: 0.2145%;"><ruby>Riichi<rt>聽</rt></ruby></button>
+            <button disabled id="m4" onclick="MoveButton(4)" style="left: 50.5005%; bottom: 0.2145%;"><ruby>Win<rt>胡</rt></ruby></button>
+            <button disabled id="m5" onclick="MoveButton(5)" style="left: 50.5005%; top: 0.2145%; font-size: 0.015rem; text-wrap: nowrap;"><ruby>Self-draw<rt>自摸</rt></ruby></button>
+            <button disabled id="m6" onclick="MoveButton(6)" style="left: 75.5005%; bottom: 0.2145%;">Cancel</button>
         </div>
         <!-- <div class="sq" data-val="0"></div> -->
         <div id="phand" style="position: absolute; left: 15%; top: 84%; width: 8.4375%; height: 60%; transform-origin: 50% 12.5%; transform: rotate(270deg); overflow: visible;"></div>
@@ -115,6 +115,7 @@
     const infostr = document.getElementById("infostr");
     const scores = [document.getElementById("pscore"), document.getElementById("score1"), document.getElementById("score2"), document.getElementById("score3")];
     const moves = [document.getElementById("m0"), document.getElementById("m1"), document.getElementById("m2"), document.getElementById("m3"), document.getElementById("m4"), document.getElementById("m5"), document.getElementById("m6")];
+    const mvchi=0, mvpon=1, mvkan=2, mvrii=3, mvron=4, mvtsm=5, mvcan=6;
     const hands = [document.getElementById("phand"), document.getElementById("hand1"), document.getElementById("hand2"), document.getElementById("hand3")];
     const fulus = [document.getElementById("pfulu"), document.getElementById("fulu1"), document.getElementById("fulu2"), document.getElementById("fulu3")];
     const draws = [document.getElementById("pdraw"), document.getElementById("draw1"), document.getElementById("draw2"), document.getElementById("draw3")];
@@ -128,10 +129,10 @@
     function Randint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}return b+Math.floor(Math.random()*a);}
     function CryRandint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}const c=new Uint32Array(1);crypto.getRandomValues(c);return c[0]%a+b;}
     //max is non-inclusive
-    function PieceOf(val){return `<div class="sq" data-val="${val}"></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
+    function PieceOf(val, ori=-1){return `<div class="sq" data-val="${val}"${ori>=0?' data-ori="'+ori+'"':''}></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
     function SetField(pos,val=-3,ori=-1){if(val!=-3)fdpcs[pos].dataset.val=val;if(ori!=-1)fdpcs[pos].dataset.ori=ori;}
     var charord; //character order, [0]=east [1]=south... 0=puan 1=chyung 2=zra 3=cnai
-    var charpos; //[0]=east... 0=bottom, 1=right, 2=top, 3=left
+    var charpos; //use this for wind to on-screen position convertion [0]=east... 0=bottom, 1=right, 2=top, 3=left
     var pchar;
     var pwind;
     var pscore;
@@ -141,6 +142,7 @@
     var goulash; //liou2 jyu2 count
     var mtn; //mountain (pai shan)
     var srrou; //players' actual hands (srrou for srrou3 pai2)
+    var mingp; //ming2(revealed) pai2. players' fulu's
     var jin; //jin4 drrang1 of the turn player
     var turnp; //turn player
 </script>
@@ -193,6 +195,7 @@
         }
         pnum = charord.length;
         srrou=[]; for(let i=0;i<pnum;i++)srrou.push([]);
+        mingp=[]; for(let i=0;i<pnum;i++)mingp.push([]);
         charpos=[]; for(let i=0;i<pnum;i++)charpos.push(-1);
         for(let i=0;i<pnum;i++)for(let j=0;j<4;j++)if(winds[j].style.visibility!=="hidden"&&winds[j].innerHTML===windarr[i])charpos[i]=j;
         gwind = [0, 0]; streak = 0; goulash = 0;

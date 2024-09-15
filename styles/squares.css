@@ -58,6 +58,10 @@ div.odraw div.sq{
     height: 20%;
     width: 100%;
 }
+#pfulu div.sq[data-ori="1"]{transform:rotate(0);}#pfulu div.sq[data-ori="2"]{transform:rotate(270deg);}#pfulu div.sq[data-ori="3"]{transform:rotate(180deg);}
+#fulu1 div.sq[data-ori="0"]{transform:rotate(180deg);}#fulu1 div.sq[data-ori="2"]{transform:rotate(0);}#fulu1 div.sq[data-ori="3"]{transform:rotate(270deg);}
+#fulu2 div.sq[data-ori="0"]{transform:rotate(270deg);}#fulu2 div.sq[data-ori="1"]{transform:rotate(180deg);}#fulu2 div.sq[data-ori="3"]{transform:rotate(0);}
+#fulu3 div.sq[data-ori="0"]{transform:rotate(0);}#fulu3 div.sq[data-ori="1"]{transform:rotate(270deg);}#fulu3 div.sq[data-ori="2"]{transform:rotate(180deg);}
 #phand div.sq:hover, #pdraw div.sq:hover{filter: brightness(1.25) drop-shadow(0 0 0.001rem #fff);}
 div.sq{background-image: none;} /* use -2 to represent empty */
 div.sq[data-val="-1"]{background-image: url("../images/pc.svg");}

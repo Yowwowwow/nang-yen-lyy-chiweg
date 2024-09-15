@@ -2,8 +2,10 @@ var dealtpieces;
 var playedpieces;
 var sea; //list of played pieces
 var newp; //last played piece
+var waitingfor; //stores if we are wating for the player to pong or chi
 const nodraw = 87;
 function GMNGStartRound(){
+    waitingfor=-1; newp=-1;
     let bag = [0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,10,11,11,12,12,13,13,14,14,15,15,16,16,16,16,16];
     mtn = [];
     for(let i=0;i<32;i++){
@@ -15,6 +17,7 @@ function GMNGStartRound(){
     for(let i=0;i<moves.length;i++)moves[i].disabled=true;
     for(let i=0;i<pnum;i++){
         srrou[i] = [];
+        mingp[i] = [];
         let j = charpos[i];
         hands[j].innerHTML = "";
         fulus[j].innerHTML = "";
@@ -94,7 +97,7 @@ function ComputerDonePlaying(num){
     playedpieces++;
     sea.push(num);
     newp = num;
-    //TODO: Now, check chi&pong&kang&ron before proceeding to the next player's turn
+    //Now, check chi&pong&kang&ron before proceeding to the next player's turn
     //Logic: if player can (ron&&(chi||pong||kang)), give all options to player first, but if player chooses to
     //chi, pong or kang (not ron), the computers may interrupt the player by choosing a higher priority action
     //(in this case, must be ron). However, when player can only (chi||pong||kang) (but not ron), we simply
@@ -102,18 +105,19 @@ function ComputerDonePlaying(num){
     //the player will not be interupted in this case. Priority high to low: 1. Ron, 2. Pong closer to the player
     //discarding the piece when two players can pong at the same time, 3. Further/solo pong or kang, 4. chi
     if(RonCheck())return;
-    if(newp==6||newp==16)PongKangCheck(true);
-    else if(newp%10>=3&&newp%10<=5)ChiCheck();
+    if(pnum>=2&&(newp==6||newp==16))PongKangCheck(true);
+    else if(pnum>=3&&newp%10>=3&&newp%10<=5)ChiCheck();
     else{
-        //TODO: Go to the next turn
-        //PongKangCheck and ChiCheck will also handle going to the next turn
+        //Go to the next turn. PongKangCheck and ChiCheck will also handle going to the next turn
+        turnp++; turnp%=pnum;
+        ttc(()=>{TurnStart();}, 250);
     }
 }
 function PlayerPlays(num){
     console.log(num);
 }
 function PongKangCheck(askplayer=true){ //if nobody pongs/kangs then return false, otherwise true
-    if(newp!=6&&newp!=16){alert("Wrong PongKangCheck call that shouldn't happen!!!!");return;}
+    if(pnum<2||(newp!=6&&newp!=16)){alert("Wrong PongKangCheck call that shouldn't happen!!!!");return;}
     let metplayer = askplayer;
     for(let i=1;i<pnum;i++){
         let j = (turnp+i)%pnum;
@@ -123,23 +127,92 @@ function PongKangCheck(askplayer=true){ //if nobody pongs/kangs then return fals
         if(tmp<2)continue;
         if(j==pwind){
             if(askplayer){
-                //TODO: Function to show pong/kang buttons and wait for player response
                 //If player chooses to cancel, we then run PongKangCheck(false);
+                waitingfor = mvpon;
+                moves[mvpon].disabled = false;
+                if(tmp>=3)moves[mvkan].disabled = false;
+                moves[mvcan].disabled = false;
                 return;
             }
         }
         else{if(LogicPongKang(j, newp))return;}
     }
+    turnp++; turnp%=pnum;
+    ttc(()=>{TurnStart();}, 250);
 }
 function ChiCheck(){
-    return;
-    //TODO: Implement ChiCheck
+    if(pnum<3||newp%10<3||newp%10>5){alert("Wrong ChiCheck call that shouldn't happen!!!!");return;}
+    let j = (turnp+1)%pnum; //this is the shia4 jia1
+    let flag = true; let t = newp>=10?10:0;
+    for(let i=3;i<=5;i++){
+        if(i==newp%10)continue;
+        if(srrou[j].indexOf(i+t)<0){flag=false;break;}
+    }
+    if(flag){
+        if(j==pwind){
+            waitingfor = mvchi;
+            moves[mvchi].disabled = false;
+            moves[mvcan].disabled = false;
+            return;
+        }
+        else{if(LogicChi(j, newp))return;}
+    }
+    turnp++; turnp%=pnum;
+    ttc(()=>{TurnStart();}, 250);
+}
+function DoPong(who, ismingkang=false){
+    let number = ismingkang?3:2;
+    playedpieces--;
+    SetField(playedpieces, -2, 0);
+    for(let i=srrou[who].length-1,j=0;j<number;i--)if(newp==srrou[who][i]){srrou[who].splice(i,1);j++;}
+    for(let i=0;i<number;i++){mingp[who].push(newp);fulus[charpos[who]].innerHTML+=PieceOf(newp);}
+    mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]); //the last piece faces the opposite direction of the player discarding it
+    let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
+    hands[charpos[who]].innerHTML = s;
+    turnp = who;
+    if(ismingkang)ttc(()=>{TurnStart();},100);else TurnStart(nodraw);
+}
+function MoveButton(num){
+    for(let i=0;i<moves.length;i++)moves[i].disabled=true;
+    if(num==mvcan){
+        if(waitingfor==mvpon){
+            waitingfor = -1;
+            PongKangCheck(false);
+            return;
+        }
+        else if(waitingfor==mvchi){
+            waitingfor = -1;
+            turnp++; turnp%=pnum;
+            ttc(()=>{TurnStart();}, 100);
+            return;
+        }
+    }
+    else if(num==mvpon){
+        DoPong(pwind);
+    }
+    else if(num==mvkan){
+        if(waitingfor==mvpon){ //this case is ming2 kang-ing opponent
+            waitingfor = -1;
+            DoPong(pwind, true);
+        }
+        else{
+            //TODO: implement an4 kang and bu3 kang, also chiang3 kang (when bu3 kang)
+        }
+    }
+    else if(num==mvchi){
+        //TODO: implement chi
+    }
 }
 function LogicPongKang(who, tar){ //tar is target, the piece just discarded
     return false;
     //TODO: Implement computer Pong Kang logic
 }
+function LogicChi(who, tar){
+    return false;
+    //TODO: Implement computer Chi logic
+}
 function RonCheck(){ //if nobody rons then return false, otherwise true
     return false;
     //TODO: this too hard bruh, will do later
+    //If player chooses to chi/pong/kang instead, then we store their decision, and then run PongKangCheck
 }
