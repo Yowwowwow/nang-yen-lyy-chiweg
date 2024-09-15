@@ -101,19 +101,45 @@ function ComputerDonePlaying(num){
     //just check whether computers want to perform a higher priority action before letting player choose, and
     //the player will not be interupted in this case. Priority high to low: 1. Ron, 2. Pong closer to the player
     //discarding the piece when two players can pong at the same time, 3. Further/solo pong or kang, 4. chi
-    RonCheck();
-    PongKangCheck();
+    if(RonCheck())return;
+    if(newp==6||newp==16)PongKangCheck(true);
+    else if(newp%10>=3&&newp%10<=5)ChiCheck();
+    else{
+        //TODO: Go to the next turn
+        //PongKangCheck and ChiCheck will also handle going to the next turn
+    }
 }
 function PlayerPlays(num){
     console.log(num);
 }
-function PongKangCheck(){
-    if(newp!=6&&newp!=16)return;
+function PongKangCheck(askplayer=true){ //if nobody pongs/kangs then return false, otherwise true
+    if(newp!=6&&newp!=16){alert("Wrong PongKangCheck call that shouldn't happen!!!!");return;}
+    let metplayer = askplayer;
     for(let i=1;i<pnum;i++){
         let j = (turnp+i)%pnum;
-        //TODO: if this player has 2 or 3 of the same piece etc...
+        if(!askplayer&&j==pwind){metplayer=true;continue;}if(!metplayer)continue;
+        let tmp = 0;
+        for(let k=0;k<srrou[j].length;k++)if(srrou[j][k]==newp)tmp++;
+        if(tmp<2)continue;
+        if(j==pwind){
+            if(askplayer){
+                //TODO: Function to show pong/kang buttons and wait for player response
+                //If player chooses to cancel, we then run PongKangCheck(false);
+                return;
+            }
+        }
+        else{if(LogicPongKang(j, newp))return;}
     }
 }
-function RonCheck(){
+function ChiCheck(){
+    return;
+    //TODO: Implement ChiCheck
+}
+function LogicPongKang(who, tar){ //tar is target, the piece just discarded
+    return false;
+    //TODO: Implement computer Pong Kang logic
+}
+function RonCheck(){ //if nobody rons then return false, otherwise true
+    return false;
     //TODO: this too hard bruh, will do later
 }
