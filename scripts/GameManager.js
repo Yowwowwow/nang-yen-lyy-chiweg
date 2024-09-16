@@ -104,6 +104,7 @@ function ComputerDonePlaying(num){
     //just check whether computers want to perform a higher priority action before letting player choose, and
     //the player will not be interupted in this case. Priority high to low: 1. Ron, 2. Pong closer to the player
     //discarding the piece when two players can pong at the same time, 3. Further/solo pong or kang, 4. chi
+    //!!!End turn check!!!
     if(RonCheck())return;
     if(pnum>=2&&(newp==6||newp==16))PongKangCheck(true);
     else if(pnum>=3&&newp%10>=3&&newp%10<=5)ChiCheck();
@@ -115,6 +116,35 @@ function ComputerDonePlaying(num){
 }
 function PlayerPlays(num){
     console.log(num);
+    waitingfor = -1;
+    for(let i=0;i<moves.length;i++)moves[i].disabled=true;
+    for(let i=0, arr=hands[charpos[turnp]].children;i<arr.length;i++)arr[i].removeAttribute("onclick");
+    if(jin!=-1)draws[charpos[turnp]].children[0].removeAttribute("onclick");
+    draws[charpos[turnp]].innerHTML = "";
+    let tmp;
+    if(num>3){ //muo1 chiye1
+        tmp = jin;
+    }
+    else{ //not muo1 chiye1
+        tmp = srrou[turnp][num];
+        srrou[turnp].splice(num, 1);
+        if(jin!=-1)srrou[turnp].push(jin);
+        let s=""; for(let i=0;i<srrou[turnp].length;i++)s+=PieceOf(turnp==pwind?srrou[turnp][i]:-1);
+        hands[charpos[turnp]].innerHTML = s;
+    }
+    SetField(playedpieces, tmp, charpos[turnp]);
+    playedpieces++;
+    sea.push(tmp);
+    newp = tmp;
+    //!!!End turn check!!!
+    if(RonCheck())return;
+    if(pnum>=2&&(newp==6||newp==16))PongKangCheck(true);
+    else if(pnum>=3&&newp%10>=3&&newp%10<=5)ChiCheck();
+    else{
+        //Go to the next turn. PongKangCheck and ChiCheck will also handle going to the next turn
+        turnp++; turnp%=pnum;
+        ttc(()=>{TurnStart();}, 250);
+    }
 }
 function PongKangCheck(askplayer=true){ //if nobody pongs/kangs then return false, otherwise true
     if(pnum<2||(newp!=6&&newp!=16)){alert("Wrong PongKangCheck call that shouldn't happen!!!!");return;}
@@ -163,23 +193,27 @@ function ChiCheck(){
 function DoPong(who, ismingkang=false){
     let number = ismingkang?3:2;
     playedpieces--;
+    sea.pop();
     SetField(playedpieces, -2, 0);
     for(let i=srrou[who].length-1,j=0;j<number;i--)if(newp==srrou[who][i]){srrou[who].splice(i,1);j++;}
     for(let i=0;i<number;i++){mingp[who].push(newp);fulus[charpos[who]].innerHTML+=PieceOf(newp);}
     mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]); //the last piece faces the opposite direction of the player discarding it
     let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
     hands[charpos[who]].innerHTML = s;
+    draws[charpos[who]].dataset.mov = 1;
     turnp = who;
     if(ismingkang)ttc(()=>{TurnStart();},100);else TurnStart(nodraw);
 }
 function DoChi(who){
     playedpieces--;
+    sea.pop();
     SetField(playedpieces, -2, 0);
     for(let i=srrou[who].length-1,j=[newp%10];j.length<3;i--)if(srrou[who][i]%10>=3&&srrou[who][i]%10<=5&&~~(srrou[who][i]/10)==~~(newp/10)&&j.indexOf(srrou[who][i]%10)<0){j.push(srrou[who][i]%10);srrou[who].splice(i,1);}
     for(let i=(newp<10)?3:13;i%10<=5;i++){if(i==newp)continue;mingp[who].push(i);fulus[charpos[who]].innerHTML+=PieceOf(i);}
     mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]);
     let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
     hands[charpos[who]].innerHTML = s;
+    draws[charpos[who]].dataset.mov = 1;
     turnp = who;
     TurnStart(nodraw);
 }

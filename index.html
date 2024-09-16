@@ -170,18 +170,22 @@
         heads[0].innerHTML = headarr[pchar];
         winds[0].innerHTML = windarr[pwind];
         scores[0].innerHTML = scorearr[charord.length-1];
-        for(let i=1;i<4;i++){ //set heads, winds, scores, hands(, draw, fuuro)
+        for(let i=1;i<4;i++){ //set heads, winds, scores, hands, draws, fulus
             if(charord.length==1 || (charord.length==2 && i%2==1) || (charord.length==3 && i+pwind==3)){
                 heads[i].style.visibility = "hidden";
                 winds[i].style.visibility = "hidden";
                 scores[i].style.visibility = "hidden";
                 hands[i].style.visibility = "hidden";
+                draws[i].style.visibility = "hidden";
+                fulus[i].style.visibility = "hidden";
             }
             else{
                 heads[i].style.removeProperty("visibility");
                 winds[i].style.removeProperty("visibility");
                 scores[i].style.removeProperty("visibility");
                 hands[i].style.removeProperty("visibility");
+                draws[i].style.removeProperty("visibility");
+                fulus[i].style.removeProperty("visibility");
                 if(charord.length==2){
                     heads[i].innerHTML = headarr[charord[(pwind+1)%2]];
                     winds[i].innerHTML = windarr[(pwind+1)%2];
