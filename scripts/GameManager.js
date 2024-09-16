@@ -172,6 +172,17 @@ function DoPong(who, ismingkang=false){
     turnp = who;
     if(ismingkang)ttc(()=>{TurnStart();},100);else TurnStart(nodraw);
 }
+function DoChi(who){
+    playedpieces--;
+    SetField(playedpieces, -2, 0);
+    for(let i=srrou[who].length-1,j=[newp%10];j.length<3;i--)if(srrou[who][i]%10>=3&&srrou[who][i]%10<=5&&~~(srrou[who][i]/10)==~~(newp/10)&&j.indexOf(srrou[who][i]%10)<0){j.push(srrou[who][i]%10);srrou[who].splice(i,1);}
+    for(let i=(newp<10)?3:13;i%10<=5;i++){if(i==newp)continue;mingp[who].push(i);fulus[charpos[who]].innerHTML+=PieceOf(i);}
+    mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]);
+    let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
+    hands[charpos[who]].innerHTML = s;
+    turnp = who;
+    TurnStart(nodraw);
+}
 function MoveButton(num){
     for(let i=0;i<moves.length;i++)moves[i].disabled=true;
     if(num==mvcan){
@@ -188,6 +199,7 @@ function MoveButton(num){
         }
     }
     else if(num==mvpon){
+        waitingfor = -1;
         DoPong(pwind);
     }
     else if(num==mvkan){
@@ -200,7 +212,8 @@ function MoveButton(num){
         }
     }
     else if(num==mvchi){
-        //TODO: implement chi
+        waitingfor = -1;
+        DoChi(pwind);
     }
 }
 function LogicPongKang(who, tar){ //tar is target, the piece just discarded
