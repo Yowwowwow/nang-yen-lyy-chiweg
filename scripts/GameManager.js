@@ -1,9 +1,11 @@
 var dealtpieces;
+var drawntails; //number of pieces drawn from tail of mountain
 var playedpieces;
 var sea; //list of played pieces
 var newp; //last played piece
 var waitingfor; //stores if we are wating for the player to pong or chi
 const nodraw = 87;
+const drawfromback = 69;
 function GMNGStartRound(){
     waitingfor=-1; newp=-1;
     let bag = [0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,10,11,11,12,12,13,13,14,14,15,15,16,16,16,16,16];
@@ -25,10 +27,10 @@ function GMNGStartRound(){
         draws[j].dataset.mov = 0;
     }
     //TODO: Complete initialization of each new jyu2 (UPDATE 2024AUG31: probably done, so far)
-    timeoutstoclear.push(setTimeout(()=>{dealtpieces=0;Give1Piece();}, 250));
+    timeoutstoclear.push(setTimeout(()=>{dealtpieces=0;drawntails=0;Give1Piece();}, 250));
 }
-function DrawFromMtn(num=0){//pass 1 to this function to draw from tail, otherwise, draw from head
-    if(num!=1){//draw from head (normal draw)
+function DrawFromMtn(num=0){//pass 69 to this function to draw from tail, otherwise, draw from head
+    if(num!=drawfromback){//draw from head (normal draw)
         let tmp = mtn[0];
         mtn.splice(0, 1);
         return tmp;
@@ -58,9 +60,10 @@ function TurnStart(arg=0){
     let isplayer = turnp==pwind;
     if(arg!==nodraw){
         if(mtn.length<=6-pnum){return;}//too few pieces left, liou2 jyu2
-        jin = DrawFromMtn();
-        SetField(dealtpieces, -2);
-        dealtpieces++;
+        jin = DrawFromMtn(arg);
+        if(arg===drawfromback){SetField(31-drawntails, -2);drawntails++;}
+        else{SetField(dealtpieces, -2);dealtpieces++;}
+        if(srrou[turnp].length<=1)draws[charpos[turnp]].dataset.mov = 1;
         draws[charpos[turnp]].innerHTML = PieceOf(isplayer?jin:-1);
     }
     else{
@@ -200,9 +203,8 @@ function DoPong(who, ismingkang=false){
     mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]); //the last piece faces the opposite direction of the player discarding it
     let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
     hands[charpos[who]].innerHTML = s;
-    draws[charpos[who]].dataset.mov = 1;
     turnp = who;
-    if(ismingkang)ttc(()=>{TurnStart();},100);else TurnStart(nodraw);
+    if(ismingkang)ttc(()=>{TurnStart(drawfromback);},100);else TurnStart(nodraw);
 }
 function DoChi(who){
     playedpieces--;
@@ -213,7 +215,6 @@ function DoChi(who){
     mingp[who].push(newp); fulus[charpos[who]].innerHTML+=PieceOf(newp, charpos[turnp]);
     let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
     hands[charpos[who]].innerHTML = s;
-    draws[charpos[who]].dataset.mov = 1;
     turnp = who;
     TurnStart(nodraw);
 }
