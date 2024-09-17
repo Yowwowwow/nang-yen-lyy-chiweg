@@ -129,7 +129,7 @@
     function Randint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}return b+Math.floor(Math.random()*a);}
     function CryRandint(max,min=0){let a=max-min;b=min;if(a<0){a*=-1;b=max;}const c=new Uint32Array(1);crypto.getRandomValues(c);return c[0]%a+b;}
     //max is non-inclusive
-    function PieceOf(val, ori=-1){return `<div class="sq" data-val="${val}"${ori>=0?' data-ori="'+ori+'"':''}></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
+    function PieceOf(val, ori=-1, isdark=false){return `<div class="sq" data-val="${val}"${ori>=0?' data-ori="'+ori+'"':''}${isdark?' data-dark="1"':''}></div>`;} //-2: empty; -1: back; 0: shuai; 10: jiang
     function SetField(pos,val=-3,ori=-1){if(val!=-3)fdpcs[pos].dataset.val=val;if(ori!=-1)fdpcs[pos].dataset.ori=ori;}
     var charord; //character order, [0]=east [1]=south... 0=puan 1=chyung 2=zra 3=cnai
     var charpos; //use this for wind to on-screen position convertion [0]=east... 0=bottom, 1=right, 2=top, 3=left
@@ -145,6 +145,7 @@
     var mingp; //ming2(revealed) pai2. players' fulu's
     var jin; //jin4 drrang1 of the turn player
     var turnp; //turn player
+    var dark; //this array stores whether each player an4kang-ed or not
 </script>
 <script src="scripts/CharacterSelect.js"></script>
 <script src="scripts/Settings.js"></script>
@@ -200,6 +201,7 @@
         pnum = charord.length;
         srrou=[]; for(let i=0;i<pnum;i++)srrou.push([]);
         mingp=[]; for(let i=0;i<pnum;i++)mingp.push([]);
+        dark=[]; for(let i=0;i<pnum;i++)dark.push(false);
         charpos=[]; for(let i=0;i<pnum;i++)charpos.push(-1);
         for(let i=0;i<pnum;i++)for(let j=0;j<4;j++)if(winds[j].style.visibility!=="hidden"&&winds[j].innerHTML===windarr[i])charpos[i]=j;
         gwind = [0, 0]; streak = 0; goulash = 0;

@@ -3,16 +3,20 @@ var drawntails; //number of pieces drawn from tail of mountain
 var playedpieces;
 var sea; //list of played pieces
 var newp; //last played piece
-var waitingfor; //stores if we are wating for the player to pong or chi
+var waitingfor; //stores if we are wating for the player to pong or chi or an4kang or bu3kang etc.
+var kangtar; //kang target
+var ischiangkang;
 const nodraw = 87;
 const drawfromback = 69;
 function GMNGStartRound(){
-    waitingfor=-1; newp=-1;
+    waitingfor=-1; newp=-1; kangtar=-1;
     let bag = [0,1,1,2,2,3,3,4,4,5,5,6,6,6,6,6,10,11,11,12,12,13,13,14,14,15,15,16,16,16,16,16];
+    //let bag = [6,0,6,1,6,6,1,2,2,3,3,4,4,5,5,10,11,11,12,12,13,13,14,14,15,15,16,16,16,16,16,6];
     mtn = [];
     for(let i=0;i<32;i++){
         SetField(i, -1, 0);
         let tmp = CryRandint(bag.length);
+        //let tmp=0;
         mtn.push(bag[tmp]);
         bag.splice(tmp, 1);
     }
@@ -20,6 +24,7 @@ function GMNGStartRound(){
     for(let i=0;i<pnum;i++){
         srrou[i] = [];
         mingp[i] = [];
+        dark[i] = false;
         let j = charpos[i];
         hands[j].innerHTML = "";
         fulus[j].innerHTML = "";
@@ -58,6 +63,7 @@ function Give1Piece(){
 }
 function TurnStart(arg=0){
     let isplayer = turnp==pwind;
+    ischiangkang = false;
     if(arg!==nodraw){
         if(mtn.length<=6-pnum){return;}//too few pieces left, liou2 jyu2
         jin = DrawFromMtn(arg);
@@ -70,7 +76,28 @@ function TurnStart(arg=0){
         jin = -1;
     }
     if(!isplayer){ComputerThinksPlay();}
-    else{
+    else{ //cannot immediately kang after pong
+        if(jin>=0)if(mingp[turnp].length<=0){ //check an4 kang
+            let bing=0, dsu=0;
+            for(let i=0;i<srrou[turnp].length;i++)if(srrou[turnp][i]==6)bing++;else if(srrou[turnp][i]==16)dsu++;
+            if(jin==6)bing++;else if(jin==16)dsu++;
+            if(bing>=4||dsu>=4){
+                kangtar = (bing>=4)?6:16;
+                waitingfor = mvkan;
+                moves[mvkan].disabled = false;
+                moves[mvcan].disabled = false;
+            }
+        }
+        else{ //check bu3 kang
+            let bing=0, dsu=0;
+            for(let i=0;i<mingp[turnp].length;i++)if(mingp[turnp][i]==6)bing++;else if(mingp[turnp][i]==16)dsu++;
+            if((bing>=3&&(jin==6||srrou[turnp].indexOf(6)>=0))||(dsu>=3&&(jin==16||srrou[turnp].indexOf(16)>=0))){
+                kangtar = (bing>=3)?6:16;
+                waitingfor = mvkan;
+                moves[mvkan].disabled = false;
+                moves[mvcan].disabled = false;
+            }
+        }
         for(let i=0, arr=hands[charpos[turnp]].children;i<arr.length;i++)arr[i].onclick=()=>{PlayerPlays(i);};
         if(jin!=-1)draws[charpos[turnp]].children[0].onclick=()=>{PlayerPlays(4);};
     }
@@ -118,7 +145,7 @@ function ComputerDonePlaying(num){
     }
 }
 function PlayerPlays(num){
-    console.log(num);
+    //console.log(num);
     waitingfor = -1;
     for(let i=0;i<moves.length;i++)moves[i].disabled=true;
     for(let i=0, arr=hands[charpos[turnp]].children;i<arr.length;i++)arr[i].removeAttribute("onclick");
@@ -218,6 +245,39 @@ function DoChi(who){
     turnp = who;
     TurnStart(nodraw);
 }
+function DoAnKang(who){
+    let j=0;
+    for(let i=srrou[who].length-1;i>=0&&j<4;i--)if(srrou[who][i]==kangtar){srrou[who].splice(i,1);j++;}
+    if(j>=4&&jin!=-1)srrou[who].push(jin);
+    dark[who] = true;
+    for(let i=0;i<4;i++){mingp[who].push(kangtar);fulus[charpos[who]].innerHTML+=(who==pwind)?PieceOf(kangtar,-1,true):PieceOf(-1);}
+    let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
+    hands[charpos[who]].innerHTML = s;
+    draws[who].innerHTML = "";
+    turnp = who;
+    ttc(()=>{TurnStart(drawfromback);},100);
+}
+function DoBuKang(who, isdark){
+    if(srrou[who].indexOf(kangtar)>=0){
+        srrou[who].splice(srrou[who].indexOf(kangtar), 1);
+        if(jin!=-1)srrou[who].push(jin);
+    }
+    mingp[who].push(kangtar); fulus[charpos[who]].innerHTML+=isdark?((who==pwind)?PieceOf(kangtar,-1,true):PieceOf(-1)):PieceOf(kangtar);
+    let s=""; for(let i=0;i<srrou[who].length;i++)s+=PieceOf(who==pwind?srrou[who][i]:-1);
+    hands[charpos[who]].innerHTML = s;
+    draws[who].innerHTML = "";
+    if(isdark){
+        turnp = who;
+        ttc(()=>{TurnStart(drawfromback);},100);
+    }
+    else{
+        ischiangkang = true;
+        newp = kangtar;
+        if(RonCheck())return;
+        turnp = who;
+        ttc(()=>{TurnStart(drawfromback);},100);
+    }
+}
 function MoveButton(num){
     for(let i=0;i<moves.length;i++)moves[i].disabled=true;
     if(num==mvcan){
@@ -242,8 +302,20 @@ function MoveButton(num){
             waitingfor = -1;
             DoPong(pwind, true);
         }
-        else{
+        else if(waitingfor==mvkan){
             //TODO: implement an4 kang and bu3 kang, also chiang3 kang (when bu3 kang)
+            if(mingp[turnp].length<=0){ //this is an4 kang
+                waitingfor = -1;
+                DoAnKang(pwind);
+            }
+            else if(dark[turnp]){ //this is "an4(dark)" bu3 kang
+                waitingfor = -1;
+                DoBuKang(pwind, true);
+            }
+            else{
+                waitingfor = -1;
+                DoBuKang(pwind, false);
+            }
         }
     }
     else if(num==mvchi){
