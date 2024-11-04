@@ -1,3 +1,5 @@
+Development is currently paused, but I will get back to it and finish it as soon as I can.
+
 憨兒象棋麻將32張  
 nǎng yěn lyỳ chiwěg̏ (三十二雀、32 Tshiok)  
 胡牌型：1組面子+1組對子(5張)  
